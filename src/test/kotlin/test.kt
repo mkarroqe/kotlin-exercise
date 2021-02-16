@@ -6,84 +6,84 @@ import kotlin.test.fail
 class OrderServiceTest {
     @Test(expected=IllegalStateException::class)
     fun `Rejects Invalid Input`() {
-        val orderInput = "appleapple orange"
-        val totalCost = checkout(orderInput)
+        val order = Order("appleapple orange")
+        val totalCost = order.totalCost
     }
 
     @Test
     fun `Returns Correct Price of One Apple LowerCase`() {
-        val orderInput = "apple"
-        val totalCost = checkout(orderInput)
+        val order = Order("apple")
+        val totalCost = order.totalCost
         assertEquals(0.60, totalCost)
     }
 
     @Test
     fun `Returns Correct Price of One Apple Capitalized`() {
-        val orderInput = "Apple"
-        val totalCost = checkout(orderInput)
+        val order = Order("Apple")
+        val totalCost = order.totalCost
         assertEquals(0.60, totalCost)
     }
 
     @Test
     fun `Returns Correct Price of One Orange Lowercase`() {
-        val orderInput = "orange"
-        val totalCost = checkout(orderInput)
+        val order = Order("orange")
+        val totalCost = order.totalCost
         assertEquals(0.25, totalCost)
     }
 
     @Test
     fun `Returns Correct Price of One Orange Capitalized`() {
-        val orderInput = "Orange"
-        val totalCost = checkout(orderInput)
+        val order = Order("Orange")
+        val totalCost = order.totalCost
         assertEquals(0.25, totalCost)
     }
 
     @Test
     fun `Returns Correct Price of Multiple (4) Apples`() {
-        val orderInput = "apple, apple, apple, apple"
-        val totalCost = checkout(orderInput)
+        val order = Order("apple, apple, apple, apple")
+        val totalCost = order.totalCost
         assertEquals(1.20, totalCost)
     }
 
     @Test
     fun `Returns Correct Price of Multiple (4) Oranges`() {
-        val orderInput = "orange, orange, orange, orange"
-        val totalCost = checkout(orderInput)
+        val order = Order("orange, orange, orange, orange")
+        val totalCost = order.totalCost
         assertEquals(0.75, totalCost)
     }
 
     @Test
     fun `Returns Correct Price of Multiple (2) Oranges Diff Caps`() {
-        val orderInput = "orange, Orange"
-        val totalCost = checkout(orderInput)
+        val order = Order("orange, Orange")
+        val totalCost = order.totalCost
         assertEquals(0.50, totalCost)
     }
 
     @Test
     fun `Returns Correct Price of Multiple (2) Apples Diff Caps`() {
-        val orderInput = "apple, Apple"
-        val totalCost = checkout(orderInput)
+        val order = Order("apple, Apple")
+        val totalCost = order.totalCost
         assertEquals(0.60, totalCost)
     }
 
     @Test
     fun `Returns Correct Price of Mixed Order`() {
-        val orderInput = "apple, Orange"
-        val totalCost = checkout(orderInput)
+        val order = Order("apple, Orange")
+        val totalCost = order.totalCost
         assertEquals(0.85, totalCost)
     }
 
     @Test
     fun `Returns Correct Price of Given Mixed Order`() {
-        val orderInput = "apple, apple, orange, apple"
-        val totalCost = checkout(orderInput)
+        val order = Order("apple, apple, orange, apple")
+        val totalCost = order.totalCost
         assertEquals(1.45, totalCost)
     }
 
     @Test
     fun `Returns Zero for Empty Order`() {
-        val orderInput = ""
-        val totalCost = checkout(orderInput)
+        val order = Order("")
+        val totalCost = order.totalCost
         assertEquals(0.00, totalCost)
     }
 }
@@ -91,26 +91,26 @@ class OrderServiceTest {
 class SimpleOffersTest {
     @Test
     fun `3 Oranges for Price of 2`() {
-        val orderInput = "orange, orange, orange"
-        val totalCost = checkout(orderInput)
+        val order = Order("orange, orange, orange")
+        val totalCost = order.totalCost
         assertEquals(0.50, totalCost)
     }
     @Test
     fun `BOGO 2 Apples`() {
-        val orderInput = "apple, apple"
-        val totalCost = checkout(orderInput)
+        val order = Order("apple, apple")
+        val totalCost = order.totalCost
         assertEquals(0.60, totalCost)
     }
     @Test
     fun `3 oranges 2 apples`() {
-        val orderInput = "apple, apple, orange, orange, orange"
-        val totalCost = checkout(orderInput)
+        val order = Order("apple, apple, orange, orange, orange")
+        val totalCost = order.totalCost
         assertEquals(1.10, totalCost)
     }
     @Test
     fun `6 oranges 4 apples`() {
-        val orderInput = "apple, apple, apple, apple, orange, orange, orange, orange, orange, orange"
-        val totalCost = checkout(orderInput)
+        val order = Order("apple, apple, apple, apple, orange, orange, orange, orange, orange, orange")
+        val totalCost = order.totalCost
         assertEquals(2.20, totalCost)
     }
 }
