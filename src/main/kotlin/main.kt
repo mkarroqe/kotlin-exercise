@@ -42,37 +42,27 @@ fun processOrder(orderInput: String): MutableMap<Item, Int?> {
     return order
 }
 
-fun getBogoPrice(item: Item, quantity: Int): Double {
-    var currPrice = item.price * quantity
+fun getXforYPrice(item: Item, quantity: Int, numItems: Int, numCharged: Int): Double {
+    val currPrice = item.price * quantity
+    val discount:Double = numItems / (numCharged).toDouble()
 
-    if (quantity % 2 == 0) {
-        return currPrice / 2
+    if (quantity % numItems == 0) {
+        return (currPrice / discount)
     }
     else {
-        return ((item.price * (quantity - 1)) / 2) + item.price
-    }
-}
-
-fun get3for2Price(item: Item, quantity: Int): Double {
-    var currPrice = item.price * quantity
-
-    if (quantity % 3 == 0) {
-        return (currPrice / 1.5)
-    }
-    else {
-        val remainder = quantity % 3
-        return ((item.price * (quantity - remainder)) / 1.5) + (item.price * remainder)
+        val remainder = quantity % numItems
+        return ((item.price * (quantity - remainder)) / discount) + (item.price * remainder)
     }
 }
 
 fun applyOffers(item: Item, quantity: Int): Double {
-//  buy one get one free on Apples
+//  buy one get one free on Apples (AKA, 2 for 1)
     if ((item == APPLE) && (quantity > 1)) {
-        return getBogoPrice(item, quantity)
+        return getXforYPrice(item, quantity, 2, 1)
     }
 //  3 for the price of 2 on Oranges
     else if ((item == ORANGE) && (quantity > 2)) {
-        return get3for2Price(item, quantity)
+        return getXforYPrice(item, quantity, 3, 2)
     }
     else {
         return item.price * quantity
