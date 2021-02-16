@@ -42,30 +42,40 @@ fun processOrder(orderInput: String): MutableMap<Item, Int?> {
     return order
 }
 
-fun applyOffers(item: Item, quantity: Int?): Double {
-    var currPrice = item.price * quantity!!
+fun getBogoPrice(item: Item, quantity: Int): Double {
+    var currPrice = item.price * quantity
 
+    if (quantity % 2 == 0) {
+        return currPrice / 2
+    }
+    else {
+        return ((item.price * (quantity - 1)) / 2) + item.price
+    }
+}
+
+fun get3for2Price(item: Item, quantity: Int): Double {
+    var currPrice = item.price * quantity
+
+    if (quantity % 3 == 0) {
+        return (currPrice / 1.5)
+    }
+    else {
+        val remainder = quantity % 3
+        return ((item.price * (quantity - remainder)) / 1.5) + (item.price * remainder)
+    }
+}
+
+fun applyOffers(item: Item, quantity: Int): Double {
 //  buy one get one free on Apples
     if ((item == APPLE) && (quantity > 1)) {
-        if (quantity % 2 == 0) {
-            return currPrice / 2
-        }
-        else {
-            return ((item.price * (quantity - 1)) / 2) + item.price
-        }
+        return getBogoPrice(item, quantity)
     }
 //  3 for the price of 2 on Oranges
     else if ((item == ORANGE) && (quantity > 2)) {
-        if (quantity % 3 == 0) {
-            return (currPrice / 1.5)
-        }
-        else {
-            val remainder = quantity % 3
-            return ((item.price * (quantity - remainder)) / 1.5) + (item.price * remainder)
-        }
+        return get3for2Price(item, quantity)
     }
     else {
-        return currPrice
+        return item.price * quantity
     }
 }
 
@@ -79,7 +89,7 @@ fun checkout(orderInput: String): Double {
             error("Invalid Item Name: $item.name")
         }
         else {
-            var price = applyOffers(item, quantity)
+            var price = quantity?.let { applyOffers(item, it) }
             if (price != null) {
                 cost += price
             }
