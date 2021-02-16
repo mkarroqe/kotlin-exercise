@@ -1,13 +1,13 @@
 import org.junit.Test
+import java.lang.IllegalStateException
 import kotlin.test.assertEquals
 import kotlin.test.fail
 
 class OrderServiceTest {
-    @Test
+    @Test(expected=IllegalStateException::class)
     fun `Rejects Invalid Input`() {
         val orderInput = "appleapple orange"
         val totalCost = checkout(orderInput)
-        fail()
     }
 
     @Test

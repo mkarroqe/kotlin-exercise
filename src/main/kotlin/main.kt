@@ -13,7 +13,8 @@ fun processOrder(orderInput: String): List<Item> {
 //  splice at comma
     for (item in orderInput.split(", ")) {
         if (item in validApple) { order.add(APPLE) }
-        else if (item in validOrange) {order.add(ORANGE) }
+        else if (item in validOrange) { order.add(ORANGE) }
+        else if (item == "") { continue }
         else {
             error("Invalid order item $item.")
         }
