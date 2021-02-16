@@ -4,11 +4,6 @@ import kotlin.test.assertEquals
 import kotlin.test.fail
 
 class OrderServiceTest {
-//    @Test(expected=IllegalStateException::class)
-//    fun `Rejects Invalid Input`() {
-//        val order = Order("appleapple orange")
-//    }
-
     @Test
     fun `Returns Correct Price of One Apple LowerCase`() {
         val order = Order("apple")
@@ -111,5 +106,20 @@ class SimpleOffersTest {
         val order = Order("apple, apple, apple, apple, orange, orange, orange, orange, orange, orange")
         val totalCost = order.totalCost
         assertEquals(2.20, totalCost)
+    }
+}
+
+class NotificationTest {
+    @Test
+    fun `Successful order notification`() {
+        val order = Order("apple, orange")
+        val status = order.completionStatus
+        assertEquals(true, status)
+    }
+
+    fun `Failed order notification`() {
+        val order = Order("apple, aksjdfh;ah")
+        val status = order.completionStatus
+        assertEquals(false, status)
     }
 }

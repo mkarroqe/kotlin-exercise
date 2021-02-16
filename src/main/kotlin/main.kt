@@ -104,7 +104,7 @@ class Order(orderInput: String) {
 // s/o stack overflow https://stackoverflow.com/a/23088000
 fun Double.format(digits: Int) = "%.${digits}f".format(this)
 
-fun main(args: Array<String>) {
+fun main() {
     println("Please enter your order, separating items with a comma and a space:")
     val orderInput = readLine()
     val order = orderInput?.let { Order(it) }
