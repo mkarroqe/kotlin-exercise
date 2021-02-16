@@ -18,10 +18,27 @@ fun checkout(order: List<Item>): Double {
     return cost
 }
 
+fun processOrder(orderInput: String): List<Item> {
+    var order = mutableListOf<Item>()
+    val validApple = listOf("apple", "Apple")
+    val validOrange = listOf("orange", "Orange")
+
+//  splice at comma
+    for (item in orderInput.split(", ")) {
+        if (item in validApple) { order.add(APPLE) }
+        else if (item in validOrange) {order.add(ORANGE) }
+        else {
+            error("Invalid order item $item.")
+        }
+    }
+
+    return order
+}
+
 fun main(args: Array<String>) {
-//  Get Order
     println("Please enter your order:")
-    val order = listOf<Item>(APPLE, APPLE, ORANGE, APPLE)
-    val totalCost = checkout(order)
+    val orderInput = readLine()
+    val order = orderInput?.let { processOrder(it) }
+    val totalCost = order?.let { checkout(it) }
     println("The total cost is $totalCost")
 }
