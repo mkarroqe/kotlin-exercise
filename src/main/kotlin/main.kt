@@ -1,7 +1,12 @@
-//  Initialize Items (constants)
-val APPLE = Item("Apple", 0.60)
-val ORANGE = Item("Orange", 0.25)
-val MENU = listOf(APPLE, ORANGE)
+import menu.APPLE
+import menu.ORANGE
+
+//  Initialize Items ("constants" at runtime)
+object menu {
+    val APPLE = Item("Apple", 0.60)
+    val ORANGE: Item = Item("Orange", 0.25)
+    val MENU = listOf(APPLE, ORANGE)
+}
 
 class Item(var name: String, var price: Double) {
 //  for testing
@@ -17,16 +22,16 @@ fun processOrder(orderInput: String): MutableMap<Item, Int?> {
 
     //  create hash map of item : quantity
     var order = mutableMapOf<Item, Int?>()
-    order[APPLE] = 0
-    order[ORANGE] = 0
+    order[menu.APPLE] = 0
+    order[menu.ORANGE] = 0
 
 //  split at comma
     for (item in orderInput.split(", ")) {
         if (item in validApple) {
-            order[APPLE] = order[APPLE]?.plus(1)
+            order[menu.APPLE] = order[menu.APPLE]?.plus(1)
         }
         else if (item in validOrange) {
-            order[ORANGE] = order[ORANGE]?.plus(1)
+            order[menu.ORANGE] = order[menu.ORANGE]?.plus(1)
         }
         else if (item == "") { continue }
         else {
@@ -70,7 +75,7 @@ fun checkout(orderInput: String): Double {
     var cost: Double = 0.00
 
     for ((item, quantity) in order) {
-        if (item !in MENU) {
+        if (item !in menu.MENU) {
             error("Invalid Item Name: $item.name")
         }
         else {
