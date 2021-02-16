@@ -1,11 +1,18 @@
-import menu.APPLE
-import menu.MENU
-import menu.ORANGE
+import Menu.APPLE
+import Menu.MENU
+import Menu.ORANGE
+import Menu.validApple
+import Menu.validOrange
+import java.lang.IllegalStateException
 
-//  Initialize Items ("constants" at runtime)
-object menu {
+//  ("constants" at runtime)
+object Menu {
     val APPLE = Item("Apple", 0.60)
+    val validApple = listOf("apple", "Apple")
+
     val ORANGE: Item = Item("Orange", 0.25)
+    val validOrange = listOf("orange", "Orange")
+
     val MENU = listOf(APPLE, ORANGE)
 }
 
@@ -17,16 +24,14 @@ class Item(var name: String, var price: Double) {
 }
 
 class Order(orderInput: String) {
-//    var completionStatus: Boolean = false
+    var completionStatus: Boolean = false
     var totalCost: Double = checkout(orderInput)
 
     private fun processOrder(orderInput: String): MutableMap<Item, Int?> {
-//      defining acceptable item inputs
-        val validApple = listOf("apple", "Apple")
-        val validOrange = listOf("orange", "Orange")
+        completionStatus = true;
 
         //  create hash map of item : quantity
-        val order = mutableMapOf<Item, Int?>() // TODO: check
+        val order = mutableMapOf<Item, Int?>()
         order[APPLE] = 0
         order[ORANGE] = 0
 
@@ -34,13 +39,15 @@ class Order(orderInput: String) {
         for (item in orderInput.split(", ")) {
             if (item in validApple) {
                 order[APPLE] = order[APPLE]?.plus(1)
-            }
-            else if (item in validOrange) {
+            } else if (item in validOrange) {
                 order[ORANGE] = order[ORANGE]?.plus(1)
+            } else if (item == "") {
+                continue
             }
-            else if (item == "") { continue }
             else {
-                error("Invalid order item $item.")
+                println("Invalid order item $item.")
+                completionStatus = false
+                break
             }
         }
 
@@ -94,12 +101,20 @@ class Order(orderInput: String) {
     }
 }
 
-
+// s/o stack overflow https://stackoverflow.com/a/23088000
+fun Double.format(digits: Int) = "%.${digits}f".format(this)
 
 fun main(args: Array<String>) {
     println("Please enter your order, separating items with a comma and a space:")
     val orderInput = readLine()
     val order = orderInput?.let { Order(it) }
-    val totalCost = order?.totalCost
-    println("The total cost is $totalCost")
+
+    val orderStatus = order?.completionStatus
+    print("Your order status is:")
+    if (orderStatus == true) {
+        print(" COMPLETED.\n")
+        val totalCost = order?.totalCost
+        println("Total cost: $${totalCost.format(2)}")
+    }
+    else { print(" CANCELLED.") }
 }
