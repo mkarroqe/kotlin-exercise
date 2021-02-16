@@ -123,3 +123,26 @@ class NotificationTest {
         assertEquals(false, status)
     }
 }
+
+class StockTest {
+    @Test
+    fun `Apples out of stock`() {
+        val order = Order("apple, apple, apple, apple, apple, apple, apple, apple, apple, apple, apple, apple, apple, apple, orange")
+        val status = order.completionStatus
+        assertEquals(false, status)
+    }
+
+    @Test
+    fun `Oranges out of stock`() {
+        val order = Order("orange, orange, orange, orange, orange, orange, orange, orange, orange, orange, orange, orange")
+        val status = order.completionStatus
+        assertEquals(false, status)
+    }
+
+    @Test
+    fun `In stock order success`(){
+        val order = Order("apple, orange, apple, orange, orange")
+        val status = order.completionStatus
+        assertEquals(true, status)
+    }
+}

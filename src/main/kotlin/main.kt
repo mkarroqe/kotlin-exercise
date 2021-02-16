@@ -1,31 +1,43 @@
 import Menu.APPLE
+import Menu.APPLE_STOCK
 import Menu.MENU
 import Menu.ORANGE
+import Menu.ORANGE_STOCK
 import Menu.validApple
 import Menu.validOrange
-import java.lang.IllegalStateException
 
-//  ("constants" at runtime)
+// "STORE INITIALIZATION"
 object Menu {
     val APPLE = Item("Apple", 0.60)
     val validApple = listOf("apple", "Apple")
+    var APPLE_STOCK = 10
 
     val ORANGE: Item = Item("Orange", 0.25)
     val validOrange = listOf("orange", "Orange")
+    var ORANGE_STOCK = 10
 
     val MENU = listOf(APPLE, ORANGE)
 }
 
 class Item(var name: String, var price: Double) {
-//  for testing
     override fun toString(): String {
-        return name
+        return "$name: $price"
     }
 }
 
 class Order(orderInput: String) {
     var completionStatus: Boolean = false
     var totalCost: Double = checkout(orderInput)
+
+    private fun checkStock(item: String): Boolean {
+        if (item == "apple") {
+            if (APPLE_STOCK > 0) { return true }
+        }
+        else if (item == "orange") {
+            if (ORANGE_STOCK > 0) { return true }
+        }
+        return false
+    }
 
     private fun processOrder(orderInput: String): MutableMap<Item, Int?> {
         completionStatus = true;
@@ -38,10 +50,28 @@ class Order(orderInput: String) {
 //      split at comma
         for (item in orderInput.split(", ")) {
             if (item in validApple) {
-                order[APPLE] = order[APPLE]?.plus(1)
-            } else if (item in validOrange) {
-                order[ORANGE] = order[ORANGE]?.plus(1)
-            } else if (item == "") {
+                if (!checkStock("apple")) {
+                    println("Apples are out of stock.")
+                    completionStatus = false
+                    break
+                }
+                else {
+                    order[APPLE] = order[APPLE]?.plus(1)
+                    APPLE_STOCK -= 1
+                }
+            }
+            else if (item in validOrange) {
+                if (!checkStock("orange")) {
+                    println("Oranges are out of stock.")
+                    completionStatus = false
+                    break
+                }
+                else {
+                    order[ORANGE] = order[ORANGE]?.plus(1)
+                    ORANGE_STOCK -= 1
+                }
+            }
+            else if (item == "") {
                 continue
             }
             else {
@@ -81,7 +111,6 @@ class Order(orderInput: String) {
         return item.price * quantity
     }
 
-    //  Calculate Total Cost
     private fun checkout(orderInput: String): Double {
         val order: MutableMap<Item, Int?> = processOrder(orderInput)
         var cost: Double = 0.00
@@ -101,6 +130,7 @@ class Order(orderInput: String) {
     }
 }
 
+// For print formatting Doubles in main
 // s/o stack overflow https://stackoverflow.com/a/23088000
 fun Double.format(digits: Int) = "%.${digits}f".format(this)
 
