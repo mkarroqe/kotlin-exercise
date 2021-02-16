@@ -11,31 +11,59 @@ class OrderServiceTest {
     }
 
     @Test
-    fun `Returns Correct Price of One Apple`() {
+    fun `Returns Correct Price of One Apple LowerCase`() {
         val orderInput = "apple"
         val totalCost = checkout(orderInput)
         assertEquals(0.60, totalCost)
     }
 
     @Test
-    fun `Returns Correct Price of One Orange`() {
+    fun `Returns Correct Price of One Apple Capitalized`() {
+        val orderInput = "Apple"
+        val totalCost = checkout(orderInput)
+        assertEquals(0.60, totalCost)
+    }
+
+    @Test
+    fun `Returns Correct Price of One Orange Lowercase`() {
         val orderInput = "orange"
         val totalCost = checkout(orderInput)
         assertEquals(0.25, totalCost)
     }
 
     @Test
-    fun `Returns Correct Price of Multiple Same Items`() {
-        val orderInput = "apple, apple"
+    fun `Returns Correct Price of One Orange Capitalized`() {
+        val orderInput = "Orange"
         val totalCost = checkout(orderInput)
-        assertEquals(0.60, totalCost)
+        assertEquals(0.25, totalCost)
     }
 
     @Test
-    fun `Returns Correct Price of Multiple Same Diff Caps`() {
+    fun `Returns Correct Price of Multiple (4) Apples`() {
+        val orderInput = "apple, apple, apple, apple"
+        val totalCost = checkout(orderInput)
+        assertEquals(1.20, totalCost)
+    }
+
+    @Test
+    fun `Returns Correct Price of Multiple (4) Oranges`() {
+        val orderInput = "orange, orange, orange, orange"
+        val totalCost = checkout(orderInput)
+        assertEquals(0.75, totalCost)
+    }
+
+    @Test
+    fun `Returns Correct Price of Multiple (2) Oranges Diff Caps`() {
         val orderInput = "orange, Orange"
         val totalCost = checkout(orderInput)
         assertEquals(0.50, totalCost)
+    }
+
+    @Test
+    fun `Returns Correct Price of Multiple (2) Apples Diff Caps`() {
+        val orderInput = "apple, Apple"
+        val totalCost = checkout(orderInput)
+        assertEquals(0.60, totalCost)
     }
 
     @Test
