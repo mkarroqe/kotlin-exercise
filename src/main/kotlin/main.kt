@@ -1,4 +1,5 @@
 import menu.APPLE
+import menu.MENU
 import menu.ORANGE
 
 //  Initialize Items ("constants" at runtime)
@@ -22,16 +23,16 @@ fun processOrder(orderInput: String): MutableMap<Item, Int?> {
 
     //  create hash map of item : quantity
     var order = mutableMapOf<Item, Int?>()
-    order[menu.APPLE] = 0
-    order[menu.ORANGE] = 0
+    order[APPLE] = 0
+    order[ORANGE] = 0
 
 //  split at comma
     for (item in orderInput.split(", ")) {
         if (item in validApple) {
-            order[menu.APPLE] = order[menu.APPLE]?.plus(1)
+            order[APPLE] = order[APPLE]?.plus(1)
         }
         else if (item in validOrange) {
-            order[menu.ORANGE] = order[menu.ORANGE]?.plus(1)
+            order[ORANGE] = order[ORANGE]?.plus(1)
         }
         else if (item == "") { continue }
         else {
@@ -60,13 +61,13 @@ fun applyOffers(item: Item, quantity: Int): Double {
     if ((item == APPLE) && (quantity > 1)) {
         return getXforYPrice(item, quantity, 2, 1)
     }
+
 //  3 for the price of 2 on Oranges
     else if ((item == ORANGE) && (quantity > 2)) {
         return getXforYPrice(item, quantity, 3, 2)
     }
-    else {
-        return item.price * quantity
-    }
+
+    return item.price * quantity
 }
 
 //  Calculate Total Cost
@@ -75,7 +76,7 @@ fun checkout(orderInput: String): Double {
     var cost: Double = 0.00
 
     for ((item, quantity) in order) {
-        if (item !in menu.MENU) {
+        if (item !in MENU) {
             error("Invalid Item Name: $item.name")
         }
         else {
