@@ -28,7 +28,7 @@ class OrderServiceTest {
     fun `Returns Correct Price of Multiple Same Items`() {
         val orderInput = "apple, apple"
         val totalCost = checkout(orderInput)
-        assertEquals(1.20, totalCost)
+        assertEquals(0.60, totalCost)
     }
 
     @Test
@@ -49,7 +49,7 @@ class OrderServiceTest {
     fun `Returns Correct Price of Given Mixed Order`() {
         val orderInput = "apple, apple, orange, apple"
         val totalCost = checkout(orderInput)
-        assertEquals(2.05, totalCost)
+        assertEquals(1.45, totalCost)
     }
 
     @Test
@@ -57,5 +57,32 @@ class OrderServiceTest {
         val orderInput = ""
         val totalCost = checkout(orderInput)
         assertEquals(0.00, totalCost)
+    }
+}
+
+class SimpleOffersTest {
+    @Test
+    fun `3 Oranges for Price of 2`() {
+        val orderInput = "orange, orange, orange"
+        val totalCost = checkout(orderInput)
+        assertEquals(0.50, totalCost)
+    }
+    @Test
+    fun `BOGO 2 Apples`() {
+        val orderInput = "apple, apple"
+        val totalCost = checkout(orderInput)
+        assertEquals(0.60, totalCost)
+    }
+    @Test
+    fun `3 oranges 2 apples`() {
+        val orderInput = "apple, apple, orange, orange, orange"
+        val totalCost = checkout(orderInput)
+        assertEquals(1.10, totalCost)
+    }
+    @Test
+    fun `6 oranges 4 apples`() {
+        val orderInput = "apple, apple, apple, apple, orange, orange, orange, orange, orange, orange"
+        val totalCost = checkout(orderInput)
+        assertEquals(2.20, totalCost)
     }
 }
