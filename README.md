@@ -1,5 +1,10 @@
 # kotlin-exercise
+An exercise in learning [Kotlin](https://kotlinlang.org/) and practicing [Test Driven Development](https://www.agilealliance.org/glossary/tdd/#q=~(infinite~false~filters~(postType~(~'page~'post~'aa_book~'aa_event_session~'aa_experience_report~'aa_glossary~'aa_research_paper~'aa_video)~tags~(~'tdd))~searchTerm~'~sort~false~sortDirection~'asc~page~1)).
 
+## Testing
+Test Cases can be found in [`src/test/kotlin/test.kt`](https://github.com/mkarroqe/kotlin-exercise/blob/main/src/test/kotlin/test.kt). Run the `RunAllTests` class to test cases for each step, or run classes individually.
+
+## Requirements
 #### Step 1: Build an Orders Service
 - Build a service that’s able to receive simple orders of shopping goods from the
 command line
