@@ -50,9 +50,9 @@ class Order(orderInput: String) {
 //      split at comma
         for (item in orderInput.split(", ")) {
             if (item in validApple) {
-                if (!checkStock("apple")) {
-                    println("Apples are out of stock.")
+                if (!checkStock("apple") && completionStatus) {
                     completionStatus = false
+                    println("Apples are out of stock.")
                     break
                 }
                 else {
@@ -61,9 +61,9 @@ class Order(orderInput: String) {
                 }
             }
             else if (item in validOrange) {
-                if (!checkStock("orange")) {
-                    println("Oranges are out of stock.")
+                if (!checkStock("orange") && completionStatus) {
                     completionStatus = false
+                    println("Oranges are out of stock.")
                     break
                 }
                 else {

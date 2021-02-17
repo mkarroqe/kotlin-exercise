@@ -180,6 +180,7 @@ class StockTest {
     }
 }
 
+// run this to test all cases
 @RunWith(Suite::class)
 @SuiteClasses(
     OrderServiceTest::class,
@@ -187,4 +188,4 @@ class StockTest {
     NotificationTest::class,
     StockTest::class
 )
-class SuiteAllTests {} // run this to test all cases
+private class RunAllTests {}
