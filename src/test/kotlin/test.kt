@@ -4,6 +4,11 @@ import org.junit.Test
 import java.lang.IllegalStateException
 import kotlin.test.assertEquals
 import kotlin.test.fail
+import org.junit.runners.Suite
+
+import org.junit.runner.RunWith
+import org.junit.runners.Suite.SuiteClasses
+
 
 val origNumApples = APPLE_STOCK
 fun resetMenu() {
@@ -174,3 +179,12 @@ class StockTest {
         resetMenu()
     }
 }
+
+@RunWith(Suite::class)
+@SuiteClasses(
+    OrderServiceTest::class,
+    SimpleOffersTest::class,
+    NotificationTest::class,
+    StockTest::class
+)
+class SuiteAllTests {} // run this to test all cases
