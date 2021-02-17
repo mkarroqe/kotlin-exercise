@@ -5,12 +5,19 @@ import java.lang.IllegalStateException
 import kotlin.test.assertEquals
 import kotlin.test.fail
 
+val origNumApples = APPLE_STOCK
+fun resetMenu() {
+    APPLE_STOCK = origNumApples
+    ORANGE_STOCK = origNumApples
+}
+
 class OrderServiceTest {
     @Test
     fun `Returns Correct Price of One Apple LowerCase`() {
         val order = Order("apple")
         val totalCost = order.totalCost
         assertEquals(0.60, totalCost)
+        resetMenu()
     }
 
     @Test
@@ -18,6 +25,7 @@ class OrderServiceTest {
         val order = Order("Apple")
         val totalCost = order.totalCost
         assertEquals(0.60, totalCost)
+        resetMenu()
     }
 
     @Test
@@ -25,6 +33,7 @@ class OrderServiceTest {
         val order = Order("orange")
         val totalCost = order.totalCost
         assertEquals(0.25, totalCost)
+        resetMenu()
     }
 
     @Test
@@ -32,6 +41,7 @@ class OrderServiceTest {
         val order = Order("Orange")
         val totalCost = order.totalCost
         assertEquals(0.25, totalCost)
+        resetMenu()
     }
 
     @Test
@@ -39,6 +49,7 @@ class OrderServiceTest {
         val order = Order("apple, apple, apple, apple")
         val totalCost = order.totalCost
         assertEquals(1.20, totalCost)
+        resetMenu()
     }
 
     @Test
@@ -46,6 +57,7 @@ class OrderServiceTest {
         val order = Order("orange, orange, orange, orange")
         val totalCost = order.totalCost
         assertEquals(0.75, totalCost)
+        resetMenu()
     }
 
     @Test
@@ -53,6 +65,7 @@ class OrderServiceTest {
         val order = Order("orange, Orange")
         val totalCost = order.totalCost
         assertEquals(0.50, totalCost)
+        resetMenu()
     }
 
     @Test
@@ -60,6 +73,7 @@ class OrderServiceTest {
         val order = Order("apple, Apple")
         val totalCost = order.totalCost
         assertEquals(0.60, totalCost)
+        resetMenu()
     }
 
     @Test
@@ -67,6 +81,7 @@ class OrderServiceTest {
         val order = Order("apple, Orange")
         val totalCost = order.totalCost
         assertEquals(0.85, totalCost)
+        resetMenu()
     }
 
     @Test
@@ -74,6 +89,7 @@ class OrderServiceTest {
         val order = Order("apple, apple, orange, apple")
         val totalCost = order.totalCost
         assertEquals(1.45, totalCost)
+        resetMenu()
     }
 
     @Test
@@ -81,6 +97,7 @@ class OrderServiceTest {
         val order = Order("")
         val totalCost = order.totalCost
         assertEquals(0.00, totalCost)
+        resetMenu()
     }
 }
 
@@ -90,24 +107,28 @@ class SimpleOffersTest {
         val order = Order("orange, orange, orange")
         val totalCost = order.totalCost
         assertEquals(0.50, totalCost)
+        resetMenu()
     }
     @Test
     fun `BOGO 2 Apples`() {
         val order = Order("apple, apple")
         val totalCost = order.totalCost
         assertEquals(0.60, totalCost)
+        resetMenu()
     }
     @Test
     fun `3 oranges 2 apples`() {
         val order = Order("apple, apple, orange, orange, orange")
         val totalCost = order.totalCost
         assertEquals(1.10, totalCost)
+        resetMenu()
     }
     @Test
     fun `6 oranges 4 apples`() {
         val order = Order("apple, apple, apple, apple, orange, orange, orange, orange, orange, orange")
         val totalCost = order.totalCost
         assertEquals(2.20, totalCost)
+        resetMenu()
     }
 }
 
@@ -117,27 +138,24 @@ class NotificationTest {
         val order = Order("apple, orange")
         val status = order.completionStatus
         assertEquals(true, status)
+        resetMenu()
     }
 
     fun `Failed order notification`() {
         val order = Order("apple, aksjdfh;ah")
         val status = order.completionStatus
         assertEquals(false, status)
+        resetMenu()
     }
 }
 
 class StockTest {
-    val origNumApples = APPLE_STOCK
-    private fun resetMenu() {
-        APPLE_STOCK = origNumApples
-        ORANGE_STOCK = origNumApples
-    }
-
     @Test
     fun `In stock order success`() {
         val order = Order("apple, orange, apple, orange, orange")
         val status = order.completionStatus
         assertEquals(true, status)
+        resetMenu()
     }
 
     @Test
