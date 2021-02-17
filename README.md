@@ -6,7 +6,7 @@ Test Cases can be found in [`src/test/kotlin/test.kt`](https://github.com/mkarro
 
 ## Requirements
 ### Step 1: Build an Orders Service
-> **_Test class_**: `OrderServiceTest`
+> **Test class**: `OrderServiceTest`
 
 - Build a service that’s able to receive simple orders of shopping goods from the
 command line
@@ -16,7 +16,7 @@ command line
 - Add unit tests that validate your code
 
 ### Step 2: Simple offer
-> **_Test class_**: `SimpleOffersTest`
+> **Test class**: `SimpleOffersTest`
 
 - The shop decides to introduce two new offers
 - Buy one get one free on Apples
@@ -24,13 +24,13 @@ command line
 - Update your functions & unit tests accordingly 
 
 ### Step 3: Build a Customer Notification Service
-> **_Test class_**: `NotificationTest`
+> **Test class**: `NotificationTest`
 
 - Customers complained that they don’t know if their orders made it through or not as there is no notification of success
 - Build a service that listens for when orders are complete and sends a notification to the customer regarding its status and estimated delivery time
 - The Mail service subscribes to events from the Orders service and publishes an appropriate event that the customer (you) is able to read from the terminal
 
 ### Step 4: Limited Stock
-> **_Test class_**: `StockTest`
+> **Test class**: `StockTest`
 
 - Stock can now run out, this means that customers need to be notified that their order failed
