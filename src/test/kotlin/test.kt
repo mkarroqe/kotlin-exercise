@@ -1,3 +1,5 @@
+import Menu.APPLE_STOCK
+import Menu.ORANGE_STOCK
 import org.junit.Test
 import java.lang.IllegalStateException
 import kotlin.test.assertEquals
@@ -125,24 +127,32 @@ class NotificationTest {
 }
 
 class StockTest {
+    val origNumApples = APPLE_STOCK
+    private fun resetMenu() {
+        APPLE_STOCK = origNumApples
+        ORANGE_STOCK = origNumApples
+    }
+
     @Test
-    fun `Apples out of stock`() {
-        val order = Order("apple, apple, apple, apple, apple, apple, apple, apple, apple, apple, apple, apple, apple, apple, orange")
+    fun `In stock order success`() {
+        val order = Order("apple, orange, apple, orange, orange")
         val status = order.completionStatus
-        assertEquals(false, status)
+        assertEquals(true, status)
     }
 
     @Test
     fun `Oranges out of stock`() {
-        val order = Order("orange, orange, orange, orange, orange, orange, orange, orange, orange, orange, orange, orange")
+        val order = Order("orange, orange, orange, orange, orange, orange")
         val status = order.completionStatus
         assertEquals(false, status)
+        resetMenu()
     }
 
     @Test
-    fun `In stock order success`(){
-        val order = Order("apple, orange, apple, orange, orange")
+    fun `Apples out of stock`() {
+        val order = Order("apple, apple, apple, apple, apple, apple, orange")
         val status = order.completionStatus
-        assertEquals(true, status)
+        assertEquals(false, status)
+        resetMenu()
     }
 }

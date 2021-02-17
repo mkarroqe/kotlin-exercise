@@ -10,11 +10,11 @@ import Menu.validOrange
 object Menu {
     val APPLE = Item("Apple", 0.60)
     val validApple = listOf("apple", "Apple")
-    var APPLE_STOCK = 10
+    var APPLE_STOCK = 5
 
     val ORANGE: Item = Item("Orange", 0.25)
     val validOrange = listOf("orange", "Orange")
-    var ORANGE_STOCK = 10
+    var ORANGE_STOCK = 5
 
     val MENU = listOf(APPLE, ORANGE)
 }
