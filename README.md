@@ -4,6 +4,8 @@ An exercise in learning [Kotlin](https://kotlinlang.org/) and practicing [Test D
 ## Testing
 Test Cases can be found in [`src/test/kotlin/test.kt`](https://github.com/mkarroqe/kotlin-exercise/blob/main/src/test/kotlin/test.kt). Run the `RunAllTests` class to test cases for each step, or run each class individually.
 
+`mvn test` will run `RunAllTests`.
+
 ## Requirements
 ### Step 1: Build an Orders Service
 > **Test class**: `OrderServiceTest`
