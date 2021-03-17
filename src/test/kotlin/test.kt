@@ -188,4 +188,4 @@ class StockTest {
     NotificationTest::class,
     StockTest::class
 )
-private class RunAllTests {}
+public class RunAllTests {}
